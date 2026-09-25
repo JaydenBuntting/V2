@@ -1,0 +1,1321 @@
+/* ===== All Friction — shared styles ===== */
+:root {
+  --black:#100b2a; --ink:#0a0a0a; --grey:#8a8a8a; --line:#1f1f1f; --white:#fff;
+  --paper:#faf3d3; --text:#1a1714;
+  --display:"Special Elite","American Typewriter","Courier New",monospace;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+
+body {
+  background: #0b0b0b;
+  color: var(--white);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 1000px;
+  height: 500px;
+
+  background: url("../map-modified-modified.jpg") center / contain no-repeat;
+
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Fade the edges */
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 30%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 30%,
+    transparent 75%
+  );
+}
+
+
+
+main{flex:1}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* ----- Navigation ----- */
+.nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.1rem clamp(1.25rem,4vw,3rem);background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-size:1.1rem;color:var(--white);text-decoration:none}
+.nav ul{display:flex;gap:clamp(.9rem,2.5vw,2.25rem);list-style:none;overflow-x:auto}
+.nav a:not(.brand){color:var(--grey);text-decoration:none;font-size:.9rem;font-weight:500;white-space:nowrap;padding:.25rem 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.nav a:not(.brand):hover,.nav a[aria-current="page"]{color:var(--white);border-color:var(--white)}
+
+/* ----- Home hero ----- */
+.hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.25rem 5rem;
+
+  position: relative;
+  z-index: 1;
+
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 48%,
+    #222222,
+    rgba(8, 8, 8, 0) 70%
+  );
+}
+.title{font-weight:400;font-size:clamp(2.6rem,11vw,8rem);line-height:1.05;white-space:nowrap; font-family: Inter;}
+.caret{display:inline-block;width:.07em;height:.85em;margin-left:.06em;background:var(--white);vertical-align:-.05em;animation:blink .9s step-end infinite}
+.slogan{margin-top:2rem;color:var(--grey);font-size:clamp(1rem,2vw,1.25rem);opacity:0;animation:fade 1s ease 2.6s forwards}
+@keyframes blink{50%{opacity:0}} @keyframes fade{to{opacity:1}}
+
+/* ----- Inner page header ----- */
+.page-head{max-width:900px;margin:0 auto;padding:clamp(3.5rem,10vw,7rem) clamp(1.25rem,6vw,3rem) 2rem;background:radial-gradient(ellipse 60% 80% at 30% 0,#181818,transparent 70%);}
+.page-head h1{font-family: Inter;font-weight:400;font-size:clamp(2.4rem,8vw,5rem);line-height:1.05;-webkit-text-stroke:.03em var(--white)}
+.page-head p{margin-top:1.25rem;max-width:46ch;color:var(--grey);font-size:1.1rem;line-height:1.6}
+
+/* ----- Layout helpers ----- */
+.wrap{max-width:1100px;margin:0 auto;padding:2rem clamp(1.25rem,6vw,3rem) 6rem}
+.stack{display:flex;flex-direction:column;gap:clamp(4rem,12vw,9rem);padding-top:clamp(3rem,10vw,8rem)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
+.section-title{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,4vw,2.4rem);margin:4rem 0 1.5rem}
+
+/* ----- Coffee-stained paper card ----- */
+/* ----- Paper cards ----- */
+
+.card {
+  --rot: -.5deg;
+
+  position: relative;
+  overflow: hidden;
+
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+
+  color: var(--text);
+  background: var(--paper);
+
+  border: 1px solid rgba(26, 23, 20, .14);
+  border-radius: 2px;
+
+  /*
+    Harder, physical shadow.
+    Feels more like paper sitting on a surface
+    than a floating digital card.
+  */
+  box-shadow:
+    5px 6px 0 rgba(0, 0, 0, .16);
+
+  transform: rotate(var(--rot));
+}
+
+
+/* Slight variation between sheets */
+
+.card:nth-child(even) {
+  --rot: .45deg;
+  background: #f7efd0;
+}
+
+.card:nth-child(3n) {
+  --rot: -.25deg;
+  background: #eee4c1;
+}
+
+
+/*
+  Don't straighten the paper on hover.
+  A physical piece of paper wouldn't do that.
+*/
+.card:hover {
+  box-shadow:
+    6px 7px 0 rgba(0, 0, 0, .18);
+}
+
+
+/*
+  Small printed/ink imperfections.
+
+  Much less obvious than a giant circular
+  "coffee stain".
+*/
+.card::before {
+  content: "";
+
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+
+  width: 42px;
+  height: 1px;
+
+  background: rgba(65, 52, 32, .18);
+
+  transform: rotate(-2deg);
+}
+
+
+/*
+  Small irregular mark near the bottom.
+*/
+.card::after {
+  content: "";
+
+  position: absolute;
+  left: 8%;
+  bottom: 1.5rem;
+
+  width: 28%;
+  height: 1px;
+
+  background: rgba(65, 52, 32, .1);
+
+  transform: rotate(.4deg);
+}
+
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ----- Card typography ----- */
+
+.card h2,
+.card h3 {
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.card h2 {
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  letter-spacing: -.02em;
+}
+/* - TEXT COLOUR - */
+.card p{
+  margin-top:.85rem;
+  line-height:1.55;
+  color:#514b44;
+}
+
+.card ul{
+  margin-top:1.15rem;
+  list-style:none;
+  border-top:1px solid rgba(205, 114, 22, 0.12);
+}
+
+.card li{
+  padding:.55rem 0;
+  border-bottom:1px solid rgba(26,23,20,.12);
+  font-size:.95rem;
+}
+
+.card small{
+  display:block;
+  margin-top:1.1rem;
+  color:#6c5a45;
+}
+
+.stack .card{
+  width:min(100%,680px);
+  padding:clamp(1.75rem,5vw,3.5rem);
+}
+
+.stack .card:nth-child(even){
+  margin-left:auto;
+}
+
+.stack .card h2{
+  font-size:clamp(1.85rem,5vw,3.2rem);
+  letter-spacing:-.015em;
+}
+
+.stack .card p{
+  max-width:34ch;
+  font-size:1.02rem;
+}
+
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#e4e0d6;
+  border:1px solid rgba(26,23,20,.15);
+  margin-bottom:1rem;
+}
+
+/* ----- Help: FAQ ----- */
+details{border-bottom:1px solid var(--line);padding:1.25rem 0}
+summary{cursor:pointer;font-size:1.1rem;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::after{content:"+";color:var(--grey);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:.9rem;color:var(--grey);line-height:1.6;max-width:60ch}
+
+/* ----- Feedback form ----- */
+form{display:flex;flex-direction:column;gap:1.25rem;max-width:560px}
+label{display:flex;flex-direction:column;gap:.5rem;font-size:.9rem;color:var(--grey)}
+input,select,textarea{font:inherit;color:var(--white);background:#0e0e0e;border:1px solid #2a2a2a;border-radius:3px;padding:.8rem 1rem}
+input:focus,select:focus,textarea:focus{border-color:var(--white);outline:none}
+textarea{min-height:140px;resize:vertical}
+button{align-self:flex-start;font:inherit;font-weight:500;background:var(--white);color:var(--black);border:0;border-radius:3px;padding:.85rem 1.75rem;cursor:pointer;transition:transform .2s}
+button:hover{transform:translateY(-2px)}
+.thanks{display:none;color:var(--white);font-family:var(--display);font-size:1.3rem}
+
+footer{padding:2.5rem 1.25rem;text-align:center;color:var(--grey);font-size:.85rem;border-top:1px solid var(--line)}
+
+/* ----- Pop-up animation (elements with class "pop") ----- */
+.js .pop{opacity:0}
+.js .pop.in{animation:pop 0.7s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i,0)*100ms)}
+@keyframes pop{from{opacity:0;transform:translateY(28px) scale(.9) rotate(var(--rot,0deg))}to{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot,0deg))}}
+
+@media (prefers-reduced-motion:reduce){
+  .caret{animation:none}.slogan{animation:none;opacity:1}
+  .js .pop{opacity:1}.js .pop.in{animation:none}html{scroll-behavior:auto}
+}
+
+
+html {
+  background: #000;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #b5ad86 15%,
+    #b5ad86 85%,
+    transparent 100%
+  );
+}
+
+.level {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin: 1% auto;
+  padding: 1rem;
+
+  background-color: #faf3d3;
+  font-size: 20px;
+
+  border: none;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.level:hover {
+  background-color: #c5bc9c;
+}
+
+/* The dropdown content starts closed */
+.level-content {
+  max-height: 0;
+  overflow: hidden;
+
+  background-color: #efe9ca;
+
+  transition: max-height 0.3s ease;
+}
+
+/* Some spacing inside the dropdown */
+.level-content p,
+.level-content ul {
+  margin: 1rem;
+}
+
+.level-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Arrow */
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when open */
+.level.open .arrow {
+  transform: rotate(180deg);
+}
+
+/* ----- Photo divider ----- */
+
+.photo-divider {
+  width: 100%;
+  height: 200px;
+
+  display: flex;
+  gap: 2px;
+
+  overflow: hidden;
+}
+
+/* Each photo has the same height */
+.photo {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Different horizontal widths */
+.photo-1 {
+  flex: 25;
+}
+
+.photo-2 {
+  flex: 35;
+}
+
+.photo-3 {
+  flex: 30;
+}
+
+/* The actual images */
+.photo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.standards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+
+  width: 100%;
+  margin: 1% auto;
+  padding: 1rem;
+
+  background-color: #efe9ca;
+  font-size: 15px;
+
+  border: none;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.standards:hover {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+
+  width: 100%;
+  margin: 1% auto;
+  padding: 1rem;
+
+  background-color: #cbc6ab;
+  font-size: 15px;
+
+  border: none;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================================================
+   91164 STANDARD
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   APPLICATION
+   --------------------------------------------------------- */
+
+.standard-app {
+    min-height: calc(100vh - 70px);
+}
+
+
+/* =========================================================
+   STANDARD OVERVIEW
+   ========================================================= */
+
+.standard-overview {
+    display: none;
+
+    width: min(100%, 1100px);
+    margin: 0 auto;
+
+    padding:
+        clamp(3rem, 8vw, 6rem)
+        clamp(1.25rem, 5vw, 3rem)
+        5rem;
+}
+
+.standard-overview.active {
+    display: block;
+}
+
+
+/* ---------------------------------------------------------
+   Standard header
+   --------------------------------------------------------- */
+
+.standard-header {
+    padding-bottom: 4rem;
+}
+
+
+.standard-code {
+    display: block;
+
+    margin-bottom: .75rem;
+
+    color: #777;
+
+    font-family: Inter;
+    font-size: .75rem;
+
+    letter-spacing: .08em;
+}
+
+
+.standard-header h1 {
+    margin-bottom: 1rem;
+
+    font-family: Inter;
+    font-size: clamp(3rem, 12vw, 5rem);
+    font-weight: 450;
+
+    line-height: .9;
+
+    letter-spacing: -.06em;
+}
+
+
+.standard-header p {
+    max-width: 50ch;
+    font-family: Inter;
+
+    color: #cacaca;
+
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.numbering {
+    font-size: 1000px;
+}
+
+
+/* =========================================================
+   OVERVIEW SECTIONS
+   ========================================================= */
+
+.overview-section {
+    margin-top: 4rem;
+}
+
+
+.overview-section-heading {
+    display: flex;
+    align-items: baseline;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+    border-bottom: 1px solid var(--line);
+
+    padding-bottom: .75rem;
+}
+
+
+.overview-section-heading span {
+    color: #555;
+
+    font-family: var(--display);
+    font-size: .7rem;
+}
+
+
+.overview-section-heading h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   LESSON LIST
+   ========================================================= */
+
+.lesson-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.lesson-card {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 1.35rem 1rem;
+
+    border: 0;
+    border-bottom: 1px solid #202020;
+
+    background: transparent;
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        padding .2s ease;
+}
+
+
+.lesson-card:hover {
+    background: #111;
+
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+
+.lesson-card-number {
+    color: #555;
+
+    font-family: var(--display);
+    font-size: .75rem;
+}
+
+
+.lesson-card-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: .3rem;
+}
+
+
+.lesson-card-content strong {
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+
+.lesson-card-content small {
+    color: #666;
+
+    font-size: .75rem;
+}
+
+
+.lesson-card-arrow {
+    color: #777;
+
+    font-size: 1.2rem;
+
+    transition: transform .2s ease;
+}
+
+
+.lesson-card:hover .lesson-card-arrow {
+    transform: translateX(5px);
+    color: white;
+}
+
+
+/* =========================================================
+   RESOURCE CARDS
+   ========================================================= */
+
+.resource-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 2rem;
+
+    padding: 1.5rem;
+
+    background: #111;
+
+    border: 1px solid #222;
+}
+
+
+.resource-card strong {
+    font-weight: 400;
+}
+
+
+.resource-card p {
+    max-width: 55ch;
+
+    margin-top: .5rem;
+
+    color: #777;
+
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+
+.resource-card > span {
+    color: #777;
+    font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   OVERVIEW NOTE
+   ========================================================= */
+
+.overview-note {
+    max-width: 650px;
+
+    padding: 1.5rem;
+
+    border-left: 2px solid #faf3d3;
+
+    background: #111;
+
+    color: #888;
+
+    line-height: 1.7;
+}
+
+
+.overview-note p + p {
+    margin-top: 1rem;
+}
+
+
+/* =========================================================
+   LESSON MODE
+   ========================================================= */
+
+.lesson-mode {
+    display: none;
+
+    height: calc(100vh - 70px);
+
+    overflow: hidden;
+
+    flex-direction: column;
+}
+
+
+.lesson-mode.active {
+    display: flex;
+}
+
+
+/* =========================================================
+   LESSON TOP BAR
+   ========================================================= */
+
+.lesson-topbar {
+    flex: 0 0 auto;
+
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 clamp(1rem, 4vw, 3rem);
+
+    background: #090909;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.lesson-location {
+    display: flex;
+    align-items: center;
+
+    gap: .75rem;
+
+    min-width: 0;
+
+    color: #888;
+
+    font-family: var(--display);
+    font-size: .75rem;
+}
+
+
+.back-to-standard {
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: #888;
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition: color .2s ease;
+}
+
+
+.back-to-standard:hover {
+    color: white;
+}
+
+
+.location-divider {
+    color: #333;
+}
+
+
+#lessonTitle {
+    overflow: hidden;
+
+    color: #fff;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.lesson-position {
+    flex-shrink: 0;
+
+    display: flex;
+    gap: .35rem;
+
+    color: #555;
+
+    font-family: var(--display);
+    font-size: .7rem;
+}
+
+
+#lessonNumber {
+    color: white;
+}
+
+
+/* =========================================================
+   LESSON VIEWPORT
+   ========================================================= */
+
+.lesson-viewport {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+
+/* ---------------------------------------------------------
+   Individual lesson
+   --------------------------------------------------------- */
+
+.lesson-instance {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.lesson-instance.active {
+    display: block;
+}
+
+
+/* ---------------------------------------------------------
+   Individual slide
+   --------------------------------------------------------- */
+
+.lesson-slide {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+
+    padding:
+        clamp(1.5rem, 4vw, 3rem)
+        clamp(1rem, 5vw, 5rem)
+        3rem;
+}
+
+
+.lesson-slide.active {
+    display: block;
+}
+
+
+/* =========================================================
+   PART HEADING
+   ========================================================= */
+
+.part-heading {
+    width: min(100%, 900px);
+
+    margin: 0 auto 1.25rem;
+}
+
+
+.part-heading > span {
+    display: block;
+
+    margin-bottom: .5rem;
+
+    color: #666;
+
+    font-family: var(--display);
+    font-size: .65rem;
+
+    letter-spacing: .1em;
+}
+
+
+.part-heading h2 {
+    color: white;
+
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   PAPER
+   ========================================================= */
+
+.paper {
+    position: relative;
+
+    width: min(100%, 900px);
+    min-height: 500px;
+
+    margin: 0 auto;
+
+    padding: clamp(2rem, 5vw, 4rem);
+
+    background: var(--paper);
+    color: var(--text);
+
+    border: 1px solid rgba(26, 23, 20, .15);
+    border-radius: 2px;
+
+    box-shadow:
+        7px 8px 0 rgba(0, 0, 0, .25);
+
+    transform: rotate(-.2deg);
+}
+
+
+.lesson-slide:nth-child(even) .paper {
+    background: #f7efd0;
+
+    transform: rotate(.2deg);
+}
+
+
+.paper::after {
+    content: "";
+
+    position: absolute;
+
+    left: 8%;
+    bottom: 2rem;
+
+    width: 25%;
+    height: 1px;
+
+    background: rgba(65, 52, 32, .1);
+
+    transform: rotate(.4deg);
+}
+
+
+.paper > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+.paper-label {
+    display: block;
+
+    margin-bottom: 1.5rem;
+
+    color: #756c58;
+
+    font-family: var(--display);
+    font-size: .7rem;
+
+    letter-spacing: .08em;
+}
+
+
+.paper h3 {
+    margin-bottom: 1rem;
+
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+}
+
+
+.paper p {
+    max-width: 65ch;
+
+    margin-top: 1rem;
+
+    color: #514b44;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PLACEHOLDERS
+   ========================================================= */
+
+.content-placeholder,
+.question-placeholder,
+.answer-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 180px;
+
+    margin-top: 2rem;
+
+    border: 1px dashed rgba(50, 45, 38, .3);
+
+    color: #827966;
+
+    font-family: var(--display);
+    font-size: .7rem;
+
+    letter-spacing: .08em;
+
+    text-align: center;
+}
+
+
+.question-placeholder {
+    min-height: 120px;
+
+    background: rgba(255,255,255,.15);
+}
+
+
+.answer-placeholder {
+    min-height: 150px;
+
+    background: rgba(80,70,55,.06);
+}
+
+
+/* =========================================================
+   LESSON CONTROLS
+   ========================================================= */
+
+.lesson-controls {
+    flex: 0 0 auto;
+
+    height: 86px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 0 clamp(1rem, 4vw, 3rem);
+
+    background: #090909;
+
+    border-top: 1px solid var(--line);
+}
+
+
+/* ---------------------------------------------------------
+   Control buttons
+   --------------------------------------------------------- */
+
+.lesson-control {
+    display: flex;
+    align-items: center;
+
+    gap: .7rem;
+
+    min-width: 130px;
+
+    padding: .75rem 1rem;
+
+    border: 1px solid #292929;
+    border-radius: 2px;
+
+    background: #111;
+    color: #aaa;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease;
+}
+
+
+.lesson-control:hover:not(:disabled) {
+    background: #1a1a1a;
+    color: white;
+    border-color: #555;
+}
+
+
+.lesson-control.next {
+    justify-self: end;
+
+    justify-content: flex-end;
+}
+
+
+.lesson-control.previous {
+    justify-self: start;
+}
+
+
+.lesson-control:disabled {
+    opacity: .3;
+
+    cursor: not-allowed;
+}
+
+
+.control-arrow {
+    font-size: 1.2rem;
+}
+
+
+.lesson-part-indicator {
+    display: flex;
+
+    gap: .4rem;
+
+    color: #444;
+
+    font-family: var(--display);
+    font-size: .7rem;
+}
+
+
+#currentPart {
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.site-footer {
+    padding: 2rem 1rem;
+
+    border-top: 1px solid var(--line);
+
+    color: #555;
+
+    font-size: .75rem;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   DESKTOP LESSON MODE
+   ========================================================= */
+
+@media (min-width: 801px) {
+
+    .lesson-slide::-webkit-scrollbar {
+        width: 7px;
+    }
+
+
+    .lesson-slide::-webkit-scrollbar-track {
+        background: #0b0b0b;
+    }
+
+
+    .lesson-slide::-webkit-scrollbar-thumb {
+        background: #292929;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .standard-overview {
+        padding-top: 2.5rem;
+    }
+
+
+    .standard-header {
+        padding-bottom: 2rem;
+    }
+
+
+    .overview-section {
+        margin-top: 2.5rem;
+    }
+
+
+    .lesson-card {
+        grid-template-columns: 40px 1fr auto;
+
+        padding: 1rem .5rem;
+    }
+
+
+    .lesson-card:hover {
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
+
+
+    .lesson-mode {
+        height: calc(100vh - 70px);
+    }
+
+
+    .lesson-topbar {
+        height: 58px;
+
+        padding: 0 1rem;
+    }
+
+
+    .lesson-location {
+        gap: .5rem;
+
+        font-size: .65rem;
+    }
+
+
+    .lesson-slide {
+        padding:
+            1.25rem .75rem
+            2rem;
+    }
+
+
+    .part-heading {
+        margin-bottom: 1rem;
+    }
+
+
+    .part-heading h2 {
+        font-size: 1.8rem;
+    }
+
+
+    .paper {
+        min-height: 450px;
+
+        padding: 1.75rem 1.25rem;
+
+        transform: none !important;
+    }
+
+
+    .lesson-controls {
+        height: 72px;
+
+        padding: 0 .75rem;
+
+        gap: .5rem;
+    }
+
+
+    .lesson-control {
+        min-width: 48px;
+
+        width: 48px;
+        height: 44px;
+
+        justify-content: center;
+
+        padding: 0;
+    }
+
+
+    .lesson-control span:not(.control-arrow) {
+        display: none;
+    }
+
+
+    .lesson-control.next {
+        justify-content: center;
+    }
+
+
+    .lesson-part-indicator {
+        font-size: .65rem;
+    }
+
+
+    .site-footer {
+        display: none;
+    }
+
+}
+
