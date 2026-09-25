@@ -24,7 +24,7 @@ body::before {
   width: 1000px;
   height: 500px;
 
-  background: url("/map-modified-modified.jpg") center / contain no-repeat;
+  background: url("map-modified-modified.jpg") center / contain no-repeat;
 
   opacity: 0.15;
   z-index: 0;
